@@ -5,7 +5,6 @@ public abstract class Room {
     private int beds;
     private boolean occupied;
 
-    //konstruktor
     public Room(String id, int beds){
         this.id = id;
         this.beds = beds;
