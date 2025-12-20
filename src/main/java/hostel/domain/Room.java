@@ -1,35 +1,62 @@
 package hostel.domain;
 
-public abstract class Room {
-    private String id;
-    private int beds;
-    private boolean occupied;
+import hostel.utils.ValidationUtils;
 
-    public Room(String id, int beds){
+public abstract class Room implements Bookable, Exportable {
+
+    protected String id;
+    protected int beds;
+    protected boolean occupied;
+
+    protected Room(String id, int beds) {
+        ValidationUtils.validateString(id, "Room ID");
+        ValidationUtils.validatePositive(beds, "Beds count");
+
         this.id = id;
         this.beds = beds;
         this.occupied = false;
     }
+    @Override
+    public boolean isAvailable() {
+        return !occupied;
+    }
 
-    public boolean isOccupied(){
+    @Override
+    public void book() {
+        if (occupied) {
+            throw new IllegalStateException("Pokój nr  " + id + " jest zajęty!");
+        }
+        occupy();
+    }
+
+    @Override
+    public void cancel() {
+        release();
+    }
+
+    @Override
+    public String toCsv() {
+        // ZRzuca z powrotem ID, Liczba łóżek, Czy zajęty
+        return String.format("%s,%d,%b", id, beds, occupied);
+    }
+
+    public boolean isOccupied() {
         return occupied;
     }
 
-    public void occupy(){
+    protected void occupy() {
         this.occupied = true;
     }
 
-    public void release(){
+    protected void release() {
         this.occupied = false;
     }
 
-    //abstract by każda klasa miała swój nadpisany opis i musiała go mieć
     public abstract String description();
 
     public String getId() {
         return id;
     }
-
     public int getBeds() {
         return beds;
     }
