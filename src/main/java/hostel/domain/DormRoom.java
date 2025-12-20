@@ -3,9 +3,7 @@ package hostel.domain;
 public class DormRoom extends Room{
     private int lockers;
 
-    //konstruktor
     public DormRoom(String id, int beds, int lockers){
-        //wywołanie konstruktora rodzica
         super(id, beds);
 
         if(beds <= 0){
@@ -20,7 +18,6 @@ public class DormRoom extends Room{
     public int getLockers() {
         return lockers;
     }
-    //nadpisanie metody description
     @Override
     public String description() {
         return "Dorm Room nr " + getId() + " z " + getBeds() +" łóżkami " + " i " + getLockers() + " szafkami.";
