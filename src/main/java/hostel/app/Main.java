@@ -16,7 +16,7 @@ public class Main {
 
         //2.
         System.out.println("zajmuję pokój nr 101");
-        room1.occupy();
+        room1.book();
 
         //2a.
         System.out.println("Czy pokój 101 jest zajęty? : " + room1.isOccupied());
